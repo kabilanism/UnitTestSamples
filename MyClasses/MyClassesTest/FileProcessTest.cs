@@ -9,13 +9,26 @@ namespace MyClassesTest
         [TestMethod]
         public void FileNameDoesExist()
         {
-            Assert.Inconclusive();
+            //Arrange: Get all your variables set up to be used in the action step.
+            FileProcess fp = new FileProcess();
+            bool fromCall;
+
+            //Act: Execute the function using the previous arrangement and store the result.
+            fromCall = fp.FileExists(@"C:\Windows\Regedit.exe");
+
+            //Assert: Confirm whether the result returned by the action is as expected.
+            Assert.IsTrue(fromCall);
         }
 
         [TestMethod]
         public void FileNameDoesNotExist()
         {
-            Assert.Inconclusive();
+            FileProcess fp = new FileProcess();
+            bool fromCall;
+
+            fromCall = fp.FileExists(@"C:\Windows\Fake.exe");
+
+            Assert.IsFalse(fromCall);
         }
 
         [TestMethod]
