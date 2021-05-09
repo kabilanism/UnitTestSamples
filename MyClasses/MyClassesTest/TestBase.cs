@@ -7,7 +7,7 @@ namespace MyClassesTest
     {
         public TestContext TestContext { get; set; }
         protected string GOOD_FILE_NAME;
-        protected const string BAD_FILE_NAME = @"C:\Windows\Fake.exe";
+        protected string BAD_FILE_NAME = @"C:\Windows\Fake.exe";
         protected void SetGoodFileName()
         {
             GOOD_FILE_NAME = TestContext.Properties["GoodFileName"].ToString();
