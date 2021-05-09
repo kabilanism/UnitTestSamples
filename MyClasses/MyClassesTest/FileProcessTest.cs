@@ -7,6 +7,8 @@ namespace MyClassesTest
     [TestClass]
     public class FileProcessTest
     {
+        private const string BAD_FILE_NAME = @"C:\Windows\Fake.exe";
+        private const string GOOD_FILE_NAME = @"C:\Windows\Regedit.exe";
         [TestMethod]
         public void FileNameDoesExist()
         {
@@ -15,7 +17,7 @@ namespace MyClassesTest
             bool fromCall;
 
             //Act: Execute the function using the previous arrangement and store the result.
-            fromCall = fp.FileExists(@"C:\Windows\Regedit.exe");
+            fromCall = fp.FileExists(GOOD_FILE_NAME);
 
             //Assert: Confirm whether the result returned by the action is as expected.
             Assert.IsTrue(fromCall);
@@ -27,7 +29,7 @@ namespace MyClassesTest
             FileProcess fp = new FileProcess();
             bool fromCall;
 
-            fromCall = fp.FileExists(@"C:\Windows\Fake.exe");
+            fromCall = fp.FileExists(BAD_FILE_NAME);
 
             Assert.IsFalse(fromCall);
         }
@@ -48,7 +50,7 @@ namespace MyClassesTest
 
             try
             {
-                fp.FileExists("File");
+                fp.FileExists("");
             }
             catch (ArgumentNullException)
             {
