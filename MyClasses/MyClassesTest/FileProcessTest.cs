@@ -8,8 +8,6 @@ namespace MyClassesTest
     [TestClass]
     public class FileProcessTest : TestBase
     {
-        private const string BAD_FILE_NAME = @"C:\Windows\Fake.exe";
-
         [TestMethod]
         public void FileNameDoesExist()
         {
