@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyClasses;
 
@@ -7,10 +8,17 @@ namespace MyClassesTest
     [TestClass]
     public class FileProcessTest
     {
+        protected string GOOD_FILE_NAME;
         private const string BAD_FILE_NAME = @"C:\Windows\Fake.exe";
-        private const string GOOD_FILE_NAME = @"C:\Windows\Regedit.exe";
         public TestContext TestContext { get; set; }
-
+        protected void SetGoodFileName()
+        {
+            GOOD_FILE_NAME = TestContext.Properties["GoodFileName"].ToString();
+            if (GOOD_FILE_NAME.Contains("[AppPath]"))
+            {
+                GOOD_FILE_NAME = GOOD_FILE_NAME.Replace("[AppPath]", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+            }
+        }
         [TestMethod]
         public void FileNameDoesExist()
         {
@@ -18,10 +26,23 @@ namespace MyClassesTest
             FileProcess fp = new FileProcess();
             bool fromCall;
 
+            SetGoodFileName();
+
+            if (!string.IsNullOrEmpty(GOOD_FILE_NAME))
+            {
+                File.AppendAllText(GOOD_FILE_NAME, "Some Text");
+            }
+
             TestContext.WriteLine($"Checking File {GOOD_FILE_NAME} ...");
 
             //Act: Execute the function using the previous arrangement and store the result.
             fromCall = fp.FileExists(GOOD_FILE_NAME);
+
+            //Delete file
+            if (File.Exists(GOOD_FILE_NAME))
+            {
+                File.Delete(GOOD_FILE_NAME);
+            }
 
             //Assert: Confirm whether the result returned by the action is as expected.
             Assert.IsTrue(fromCall);
