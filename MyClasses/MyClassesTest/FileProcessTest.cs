@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyClasses;
 
@@ -32,15 +33,31 @@ namespace MyClassesTest
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))] //For this test, we're expecting an exception of ArgumentNull.
         public void FileNameNullOrEmpty_UsingAttribute()
         {
-            Assert.Inconclusive();
+            FileProcess fp = new FileProcess();
+
+            fp.FileExists("");
         }
 
         [TestMethod]
         public void FileNameNullOrEmpty_UsingTryCatch()
         {
-            Assert.Inconclusive();
+            FileProcess fp = new FileProcess();
+
+            try
+            {
+                fp.FileExists("File");
+            }
+            catch (ArgumentNullException)
+            {
+                //Test was a success
+                return;
+            }
+
+            //Fail the test
+            Assert.Fail("Call to FileExists() did NOT throw an ArgumentNullException.");
         }
     }
 }
