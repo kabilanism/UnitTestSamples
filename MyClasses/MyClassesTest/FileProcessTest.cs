@@ -9,12 +9,16 @@ namespace MyClassesTest
     {
         private const string BAD_FILE_NAME = @"C:\Windows\Fake.exe";
         private const string GOOD_FILE_NAME = @"C:\Windows\Regedit.exe";
+        public TestContext TestContext { get; set; }
+
         [TestMethod]
         public void FileNameDoesExist()
         {
             //Arrange: Get all your variables set up to be used in the action step.
             FileProcess fp = new FileProcess();
             bool fromCall;
+
+            TestContext.WriteLine($"Checking File {GOOD_FILE_NAME} ...");
 
             //Act: Execute the function using the previous arrangement and store the result.
             fromCall = fp.FileExists(GOOD_FILE_NAME);
@@ -29,6 +33,8 @@ namespace MyClassesTest
             FileProcess fp = new FileProcess();
             bool fromCall;
 
+            TestContext.WriteLine($"Checking File {BAD_FILE_NAME} ...");
+
             fromCall = fp.FileExists(BAD_FILE_NAME);
 
             Assert.IsFalse(fromCall);
@@ -40,6 +46,8 @@ namespace MyClassesTest
         {
             FileProcess fp = new FileProcess();
 
+            TestContext.WriteLine("Checking null or empty file ...");
+
             fp.FileExists("");
         }
 
@@ -50,6 +58,7 @@ namespace MyClassesTest
 
             try
             {
+                TestContext.WriteLine("Checking null or empty file using try catch ...");
                 fp.FileExists("");
             }
             catch (ArgumentNullException)
