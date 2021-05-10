@@ -11,6 +11,10 @@ namespace MyClassesTest
         [ClassInitialize()]
         public static void ClassInitialize(TestContext tc)
         {
+            //Setup resources for specific tests within this class.
+            //Add database tables ..
+            //Initialize data in tables ..
+            //Set text in files ..
             tc.WriteLine("In ClassInitialize() method");
         }
 
@@ -20,6 +24,36 @@ namespace MyClassesTest
             //TODO: Clean up after all tests in class
         }
 
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            TestContext.WriteLine("In TestInitialize() method");
+
+            if (TestContext.TestName.StartsWith("FileNameDoesExist"))
+            {
+                SetGoodFileName();
+                if (!string.IsNullOrEmpty(GOOD_FILE_NAME))
+                {
+                    TestContext.WriteLine("Creating file: " + GOOD_FILE_NAME);
+                    File.AppendAllText(GOOD_FILE_NAME, "Some Text");
+                }
+            }
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            TestContext.WriteLine("In TestCleanup() method");
+            if (TestContext.TestName.StartsWith("FileNameDoesExist"))
+            {
+                if (File.Exists(GOOD_FILE_NAME))
+                {
+                    TestContext.WriteLine($"Deleting file: {GOOD_FILE_NAME}");
+                    File.Delete(GOOD_FILE_NAME);
+                }
+            }
+        }
+
         [TestMethod]
         public void FileNameDoesExist()
         {
@@ -27,23 +61,10 @@ namespace MyClassesTest
             FileProcess fp = new FileProcess();
             bool fromCall;
 
-            SetGoodFileName();
-
-            if (!string.IsNullOrEmpty(GOOD_FILE_NAME))
-            {
-                File.AppendAllText(GOOD_FILE_NAME, "Some Text");
-            }
-
             TestContext.WriteLine($"Checking File {GOOD_FILE_NAME} ...");
 
             //Act: Execute the function using the previous arrangement and store the result.
             fromCall = fp.FileExists(GOOD_FILE_NAME);
-
-            //Delete file
-            if (File.Exists(GOOD_FILE_NAME))
-            {
-                File.Delete(GOOD_FILE_NAME);
-            }
 
             //Assert: Confirm whether the result returned by the action is as expected.
             Assert.IsTrue(fromCall);
@@ -92,5 +113,7 @@ namespace MyClassesTest
             //Fail the test
             Assert.Fail("Call to FileExists() did NOT throw an ArgumentNullException.");
         }
+
+        
     }
 }
