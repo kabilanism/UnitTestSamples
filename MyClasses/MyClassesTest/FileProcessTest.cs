@@ -55,6 +55,7 @@ namespace MyClassesTest
         }
 
         [TestMethod]
+        [Description("Check to see if a file exists.")]
         public void FileNameDoesExist()
         {
             //Arrange: Get all your variables set up to be used in the action step.
@@ -71,6 +72,7 @@ namespace MyClassesTest
         }
 
         [TestMethod]
+        [Description("Check to see if a file does not exist.")]
         public void FileNameDoesNotExist()
         {
             FileProcess fp = new FileProcess();
@@ -85,6 +87,7 @@ namespace MyClassesTest
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))] //For this test, we're expecting an exception of ArgumentNull.
+        [Description("Check for a thrown ArgumentNullException using ExpectedException.")]
         public void FileNameNullOrEmpty_UsingAttribute()
         {
             FileProcess fp = new FileProcess();
@@ -95,6 +98,7 @@ namespace MyClassesTest
         }
 
         [TestMethod]
+        [Description("Check for a thrown ArgumentNullExcpetion using a try catch.")]
         public void FileNameNullOrEmpty_UsingTryCatch()
         {
             FileProcess fp = new FileProcess();
