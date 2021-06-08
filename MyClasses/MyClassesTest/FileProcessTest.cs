@@ -138,5 +138,17 @@ namespace MyClassesTest
         {
             System.Threading.Thread.Sleep(500);
         }
+
+        [TestMethod]
+        [Description("Check to see if two numbers are equal.")]
+        [Owner("KabiN")]
+        [Priority(4)]
+        [TestCategory("No exception.")]
+        [DataRow(1, 1, DisplayName = "First Test (1, 1)")]
+        [DataRow(42, 42, DisplayName = "Second Test (42, 42)")]
+        public void AreNumbersEqual(int num1, int num2)
+        {
+            Assert.AreEqual(num1, num2);
+        }
     }
 }
