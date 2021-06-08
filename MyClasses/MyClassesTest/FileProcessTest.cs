@@ -60,6 +60,7 @@ namespace MyClassesTest
         [Owner("KabiN")]
         [Priority(1)]
         [TestCategory("No exception")]
+        //[Ignore]
         public void FileNameDoesExist()
         {
             //Arrange: Get all your variables set up to be used in the action step.
@@ -131,6 +132,11 @@ namespace MyClassesTest
             Assert.Fail("Call to FileExists() did NOT throw an ArgumentNullException.");
         }
 
-        
+        [TestMethod]
+        [Timeout(3000)]
+        public void SimulateTimeout()
+        {
+            System.Threading.Thread.Sleep(4000);
+        }
     }
 }
