@@ -133,10 +133,10 @@ namespace MyClassesTest
         }
 
         [TestMethod]
-        [Timeout(3000)]
+        [Timeout(1000)]
         public void SimulateTimeout()
         {
-            System.Threading.Thread.Sleep(4000);
+            System.Threading.Thread.Sleep(500);
         }
     }
 }
