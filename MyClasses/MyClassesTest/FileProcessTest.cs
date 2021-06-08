@@ -28,7 +28,7 @@ namespace MyClassesTest
         public void TestInitialize()
         {
             TestContext.WriteLine("In TestInitialize() method");
-
+            WriteDescription(this.GetType());
             if (TestContext.TestName.StartsWith("FileNameDoesExist"))
             {
                 SetGoodFileName();
@@ -44,6 +44,7 @@ namespace MyClassesTest
         public void TestCleanup()
         {
             TestContext.WriteLine("In TestCleanup() method");
+            
             if (TestContext.TestName.StartsWith("FileNameDoesExist"))
             {
                 if (File.Exists(GOOD_FILE_NAME))
