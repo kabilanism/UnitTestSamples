@@ -59,6 +59,7 @@ namespace MyClassesTest
         [Description("Check to see if a file exists.")]
         [Owner("KabiN")]
         [Priority(1)]
+        [TestCategory("No exception")]
         public void FileNameDoesExist()
         {
             //Arrange: Get all your variables set up to be used in the action step.
@@ -78,6 +79,7 @@ namespace MyClassesTest
         [Description("Check to see if a file does not exist.")]
         [Owner("KabiN")]
         [Priority(2)]
+        [TestCategory("No exception")]
         public void FileNameDoesNotExist()
         {
             FileProcess fp = new FileProcess();
@@ -95,6 +97,7 @@ namespace MyClassesTest
         [Description("Check for a thrown ArgumentNullException using ExpectedException.")]
         [Owner("KabiN")]
         [Priority(3)]
+        [TestCategory("Exception")]
         public void FileNameNullOrEmpty_UsingAttribute()
         {
             FileProcess fp = new FileProcess();
@@ -108,6 +111,7 @@ namespace MyClassesTest
         [Description("Check for a thrown ArgumentNullExcpetion using a try catch.")]
         [Owner("KabiN")]
         [Priority(3)]
+        [TestCategory("Exception")]
         public void FileNameNullOrEmpty_UsingTryCatch()
         {
             FileProcess fp = new FileProcess();
